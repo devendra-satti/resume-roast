@@ -66,14 +66,50 @@ A full-stack MERN application that uses Google Gemini AI to analyze resumes agai
 ## Data Models
 
 ### Resume
-```javascript
-{
-  userId: ObjectId,
-  fileName: String,
-  fileUrl: String,
-  content: String,
-  skills: [String],
-  experience: String,
-  education: String,
-  createdAt: Date
-}
+
+
+### Project Structure
+resume-roast/
+├── backend/
+│   ├── src/
+│   │   ├── config/           # Database config, env config
+│   │   │   └── database.js
+│   │   ├── controllers/      # Business logic
+│   │   │   └── resumeController.js
+│   │   ├── models/          # MongoDB schemas
+│   │   │   └── Resume.js
+│   │   ├── routes/          # API routes
+│   │   │   └── resumeRoutes.js
+│   │   ├── services/        # External services (Gemini, Pinecone)
+│   │   │   └── geminiService.js
+│   │   ├── middleware/      # Custom middleware
+│   │   │   └── errorHandler.js
+│   │   ├── utils/          # Helper functions
+│   │   │   └── fileHelper.js
+│   │   └── app.js          # Express app setup
+│   ├── uploads/            # Temporary file storage
+│   ├── .env                # Environment variables
+│   ├── .gitignore          # Git ignore file
+│   ├── package.json        # Backend dependencies
+│   └── server.js          # Entry point
+├── frontend/
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   │   └── common/
+│   │   ├── pages/         # Page components
+│   │   │   └── Dashboard.jsx
+│   │   ├── services/      # API service calls
+│   │   │   └── api.js
+│   │   ├── utils/         # Helper functions
+│   │   │   └── constants.js
+│   │   ├── App.js         # Main App component
+│   │   ├── App.css
+│   │   ├── index.js       # Entry point
+│   │   └── index.css
+│   ├── public/
+│   │   └── index.html
+│   ├── .env
+│   ├── .gitignore
+│   ├── package.json
+│   └── tailwind.config.js
+└── .gitignore             # Root git ignore
