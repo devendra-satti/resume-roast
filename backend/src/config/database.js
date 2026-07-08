@@ -1,17 +1,13 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from './config.js';
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(config.mongodbUri);
 
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
-    console.log(`📊 Database Name: ${conn.connection.name}`);
-    console.log(`🔗 Connection State: ${mongoose.connection.readyState}`);
+    console.log(`✅ MongoDB Connected: ${mongoose.connection.host}`);
+    console.log(`📊 Database Name: ${mongoose.connection.name}`);
     
-    // Handle connection events
     mongoose.connection.on('error', (err) => {
       console.error('❌ MongoDB connection error:', err);
     });
@@ -20,14 +16,9 @@ const connectDB = async () => {
       console.log('⚠️ MongoDB disconnected');
     });
 
-    mongoose.connection.on('reconnected', () => {
-      console.log('🔄 MongoDB reconnected');
-    });
-
-    return conn;
+    return mongoose.connection;
   } catch (error) {
     console.error('❌ MongoDB Connection Error:', error.message);
-    console.error('💡 Please check your MONGODB_URI in .env file');
     process.exit(1);
   }
 };

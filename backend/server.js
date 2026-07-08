@@ -1,21 +1,15 @@
-import dotenv from 'dotenv';
 import app from './src/app.js';
 import connectDB from './src/config/database.js';
+import config from './src/config/config.js';
 
-// Load environment variables
-dotenv.config();
-
-const PORT = process.env.PORT || 5000;
-
-// Connect to MongoDB before starting server
 const startServer = async () => {
   try {
     await connectDB();
     
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📁 Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`🌐 API URL: http://localhost:${PORT}/api`);
+    app.listen(config.port, () => {
+      console.log(`🚀 Server running on port ${config.port}`);
+      console.log(`📁 Environment: ${config.nodeEnv}`);
+      console.log(`🌐 API URL: http://localhost:${config.port}/api`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error.message);
@@ -23,15 +17,9 @@ const startServer = async () => {
   }
 };
 
-// Handle unhandled promise rejections
+// Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
   console.error('❌ Unhandled Rejection:', err);
-  process.exit(1);
-});
-
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  console.error('❌ Uncaught Exception:', err);
   process.exit(1);
 });
 
